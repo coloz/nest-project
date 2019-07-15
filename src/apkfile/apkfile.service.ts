@@ -21,7 +21,10 @@ export class ApkfileService {
         return this.apkfileRepository.find();
     }
 
-    getLatest(): string {
+    getLatest() {
+        return this.apkfileRepository.createQueryBuilder()
+            .select("MAX(version)", "max")
+            .getRawOne()
         return 'App Version Manager';
     }
 

@@ -10,7 +10,7 @@ export class ApkfileController {
     ) { }
 
     @Get()
-    getLatest(): string {
+    getLatest() {
         return this.apkfileService.getLatest();
     }
 
