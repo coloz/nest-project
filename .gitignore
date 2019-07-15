@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /upload
-# /sqlite
+/sqlite
 
 # Logs
 logs
