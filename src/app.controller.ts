@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Apkfile } from './apkfile.entity';
 // import { ApkfileService } from './apkfile/apkfile.service';
 
 @Controller()
@@ -13,6 +14,11 @@ export class AppController {
   @Get()
   getLatest(): string {
     return this.appService.getHello();
+  }
+
+  @Get('all')
+  getAll(): Promise<Apkfile[]> {
+    return this.appService.findAll();
   }
 
   @Get(':version')
@@ -29,7 +35,6 @@ export class AppController {
     this.appService.create(apkfile);
     return apkfile
   }
-
 }
 
 export class ApkVersion {

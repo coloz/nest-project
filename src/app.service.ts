@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { APP_CONFIG } from './config/app.config';
-// import { ApkfileService } from './apkfile/apkfile.service';
+
 const ApkReader = require('adbkit-apkreader')
+// var crypto = require('crypto');
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Apkfile } from './apkfile/apkfile.entity';
-// import { ApkFile } from './apkfile.entity';
+import { Apkfile } from './apkfile.entity';
 
 @Injectable()
 export class AppService {
@@ -28,11 +29,16 @@ export class AppService {
             size: file.size,
             package: data.package,
             version: data.versionName,
+            // md5: 
           }
           return apkfile
         })
       )
   }
+
+  // getMd5(file) {
+
+  // }
 
 
   findAll(): Promise<Apkfile[]> {
@@ -41,7 +47,7 @@ export class AppService {
 
   create(apkfile) {
     const apk = this.apkFileRepository.create(
-        {
+      {
         filename: apkfile.filename,
         size: apkfile.size,
         package: apkfile.package,
