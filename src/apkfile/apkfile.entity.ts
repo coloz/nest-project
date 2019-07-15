@@ -1,9 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
 
 @Entity('apkfile')
 export class Apkfile {
-  @PrimaryGeneratedColumn()
-  id: number;
+  // @PrimaryGeneratedColumn()
+  // id: number;
+
+  @PrimaryColumn()
+  md5: string;
 
   @Column()
   filename: string;
@@ -16,9 +19,6 @@ export class Apkfile {
 
   @Column()
   version: string;
-
-  @Column()
-  md5: string;
 
   @CreateDateColumn()
   createDate: Date;
