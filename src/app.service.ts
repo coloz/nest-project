@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { APP_CONFIG } from './config/app.config';
 
 const ApkReader = require('adbkit-apkreader')
-// var crypto = require('crypto');
+var crypto = require('crypto');
+var fs = require('fs');
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -36,9 +37,13 @@ export class AppService {
       )
   }
 
-  // getMd5(file) {
+  getMd5(file) {
+    let buffer = fs.readFileSync(APP_CONFIG.UPLOAD_PATH + file.filename);
+    let fsHash = crypto.createHash('md5');
 
-  // }
+    fsHash.update(buffer);
+    return fsHash.digest('hex');
+  }
 
 
   findAll(): Promise<Apkfile[]> {
@@ -46,16 +51,16 @@ export class AppService {
   }
 
   create(apkfile) {
-    const apk = this.apkFileRepository.create(
-      {
+    let apkfileData={
         filename: apkfile.filename,
         size: apkfile.size,
         package: apkfile.package,
         version: apkfile.version,
-        // updateDate: new Date()
-      }
-    );
+        md5: this.getMd5(apkfile)
+    }
+    const apk = this.apkFileRepository.create(apkfileData);
     this.apkFileRepository.save(apk);
+    return apkfileData
   }
 
 }

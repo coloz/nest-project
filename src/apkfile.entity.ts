@@ -17,6 +17,9 @@ export class Apkfile {
   @Column()
   version: string;
 
+  @Column()
+  md5: string;
+
   @CreateDateColumn()
   createDate: Date;
 
