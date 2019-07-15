@@ -24,7 +24,7 @@ export class AppController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file): Promise<any> {
-    console.log(file);
+    // console.log(file);
     let apkfile = await this.appService.getApkFileInfo(file)
     this.appService.create(apkfile);
     return apkfile

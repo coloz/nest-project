@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
-@Entity()
+@Entity('apkfile')
 export class Apkfile {
   @PrimaryGeneratedColumn()
   id: number;
@@ -20,6 +20,6 @@ export class Apkfile {
   // @Column()
   // file: boolean;
 
-  @CreateDateColumn()
-  updateDate:Date;
+  // @CreateDateColumn()
+  // updateDate:string;
 }

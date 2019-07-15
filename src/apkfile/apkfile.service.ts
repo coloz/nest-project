@@ -20,7 +20,7 @@ export class ApkfileService {
             size: apkfile.size,
             package: apkfile.package,
             version: apkfile.version,
-            updateDate: new Date()
+            // updateDate: new Date()
         });
     }
 

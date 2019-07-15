@@ -25,7 +25,9 @@ import { Apkfile } from './apkfile/apkfile.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: '../sqlite/mydb.db',
-      entities:[Apkfile]
+      entities:[Apkfile],
+      synchronize: true,
+      logger:"debug",
     }),
     TypeOrmModule.forFeature([Apkfile])
   ],

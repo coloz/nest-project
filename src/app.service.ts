@@ -1,4 +1,4 @@
-import { Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { APP_CONFIG } from './config/app.config';
 // import { ApkfileService } from './apkfile/apkfile.service';
 const ApkReader = require('adbkit-apkreader')
@@ -22,7 +22,7 @@ export class AppService {
     return ApkReader.open(APP_CONFIG.UPLOAD_PATH + file.originalname)
       .then(reader =>
         reader.readManifest().then(data => {
-          console.log(data);
+          // console.log(data);
           let apkfile = {
             filename: file.originalname,
             size: file.size,
@@ -40,14 +40,16 @@ export class AppService {
   }
 
   create(apkfile) {
-    const apk = this.apkFileRepository.create({
-      filename: apkfile.filename,
-      size: apkfile.size,
-      package: apkfile.package,
-      version: apkfile.version,
-      updateDate: new Date()
-    });
-    // this.apkFileRepository.save(apk)
+    const apk = this.apkFileRepository.create(
+        {
+        filename: apkfile.filename,
+        size: apkfile.size,
+        package: apkfile.package,
+        version: apkfile.version,
+        // updateDate: new Date()
+      }
+    );
+    this.apkFileRepository.save(apk);
   }
 
 }
