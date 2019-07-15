@@ -5,6 +5,9 @@ import { MulterModule } from '@nestjs/platform-express';
 import multer = require('multer');
 import { APP_CONFIG } from './config/app.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Apkfile } from './apkfile/apkfile.entity';
+// import { ApkFile } from './apkfile/apkfile.entity';
+// import { ApkfileModule } from './apkfile/apkfile.module';
 
 @Module({
   imports: [
@@ -21,11 +24,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: '../sqlite/mydb.sql',
+      database: '../sqlite/mydb.db',
+      entities:[Apkfile]
     }),
+    TypeOrmModule.forFeature([Apkfile])
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [
+    AppController
+  ],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule { }
 

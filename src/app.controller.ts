@@ -1,10 +1,14 @@
-import { Controller, Get, Post, Param, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+// import { ApkfileService } from './apkfile/apkfile.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(
+    private readonly appService: AppService,
+    // private readonly apkfileService: ApkfileService
+  ) { }
 
   @Get()
   getLatest(): string {
@@ -19,9 +23,11 @@ export class AppController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file): Promise<any> {
+  async uploadFile(@UploadedFile() file): Promise<any> {
     console.log(file);
-    return this.appService.getApkFileInfo(file)
+    let apkfile = await this.appService.getApkFileInfo(file)
+    this.appService.create(apkfile);
+    return apkfile
   }
 
 }
