@@ -13,11 +13,10 @@ import { APP_CONFIG } from '../config/app.config';
         MulterModule.register({
             storage: multer.diskStorage({
                 destination: (req, file, cb) => {
-                    // cb(null, '../upload');
-                    cb(null,APP_CONFIG.UPLOAD_PATH)
+                    cb(null, APP_CONFIG.UPLOAD_PATH)
                 },
                 filename: (req, file, cb) => {
-                    cb(null, file.originalname);
+                    cb(null, file.originalname + Date.now());
                 },
             }),
             fileFilter: fileFilter
