@@ -21,11 +21,13 @@ export class ApkfileService {
         return this.apkfileRepository.find();
     }
 
-    getLatest() {
-        return this.apkfileRepository.createQueryBuilder()
-            .select("MAX(version)", "max")
+    async getLatest() {
+        let max = await this.apkfileRepository.createQueryBuilder()
+            .select("MAX(versionCode)", "versionCode")
             .getRawOne()
-        return 'App Version Manager';
+        return this.apkfileRepository.createQueryBuilder()
+            .where("versionCode = :versionCode", max)
+            .getOne()
     }
 
     getApkFileInfo(file): Promise<any> {
@@ -38,7 +40,7 @@ export class ApkfileService {
                         size: file.size,
                         package: data.package,
                         version: data.versionName,
-                        // md5: 
+                        versionCode: data.versionCode
                     }
                     return apkfile
                 })
@@ -58,6 +60,7 @@ export class ApkfileService {
             size: apkfile.size,
             package: apkfile.package,
             version: apkfile.version,
+            versionCode: apkfile.versionCode,
             md5: this.getMd5(apkfile)
         }
         const apk = this.apkfileRepository.create(apkfileData);

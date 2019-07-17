@@ -16,7 +16,7 @@ import { APP_CONFIG } from '../config/app.config';
                     cb(null, APP_CONFIG.UPLOAD_PATH)
                 },
                 filename: (req, file, cb) => {
-                    cb(null, file.originalname + Date.now());
+                    cb(null, file.originalname);
                 },
             }),
             fileFilter: fileFilter

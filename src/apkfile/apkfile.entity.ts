@@ -20,6 +20,9 @@ export class Apkfile {
   @Column()
   version: string;
 
+  @Column()
+  versionCode: number;
+
   @CreateDateColumn()
   createDate: Date;
 
